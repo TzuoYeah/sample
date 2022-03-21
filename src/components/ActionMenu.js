@@ -1,10 +1,10 @@
 import react  from "react"
 
-import Sidebar from './InfoMenu/Sidebar'
-import MemberInfo from './InfoMenu/MemberInfo'
+import Sidebar from './ActionMenu/Sidebar'
+import MemberInfo from './ActionMenu/MemberInfo'
+import OperationPanel from './ActionMenu/OperationPanel'
 import sidebar from '../data/sidebar.json'
 
-let style = {resize: "none",backgroundColor:"#333",color:"white"}
 
 export default function InfoMenu(){
     return(
@@ -12,11 +12,7 @@ export default function InfoMenu(){
         <div className='sticky-top'>
           <MemberInfo {...{ name:"@使用者",introduction:"自介自介自介自介自介自介自介自介(32/140)",headshot:"http://fakeimg.pl/200x200"}}/>
           <Sidebar itemList={sidebar}/>
-
-          <div className="row p-3">
-            <textarea style={style}></textarea>
-          </div>
-
+          <OperationPanel />
         </div>
       </article>
     )

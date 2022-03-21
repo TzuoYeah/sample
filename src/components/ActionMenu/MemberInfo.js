@@ -8,7 +8,7 @@ export default function MemberInfo({headshot,introduction,name}){
             </div>
             <div className="border col-lg-6">
                 <h4>{name}</h4>
-                <spqn>{introduction}</spqn>
+                <span>{introduction}</span>
             </div>
         </div>
     )
