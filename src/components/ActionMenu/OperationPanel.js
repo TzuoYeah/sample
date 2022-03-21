@@ -1,4 +1,4 @@
-import react,{useEffect} from "react"
+import react,{useEffect,useState} from "react"
 
 const style = {
     resize: "none",
@@ -13,21 +13,34 @@ const style2 = {
     textAlign:"right"
 }
 
-
 function OperationPanelOnChange(){
     const OperationPanel = document.getElementById('OperationPanel')
     document.getElementById('OperationPanelInfo').innerHTML = `${OperationPanel.value.length}/140`
 }
 
-export default function Siderbar({itemList}){
+function ChangeMode(e,f){
+    switch(e.keyCode){
+        case 27:
+            f()
+        break;
+      }
+}
+
+export default function Siderbar(){
+    const [mode, setMode] = useState(true)
+
     useEffect(() => {
-        document.getElementById('OperationPanel').focus()
+        const f = () => setMode(mode => mode?false:true)
+        const OperationPanel = document.getElementById('OperationPanel')
+        OperationPanel.focus()
+        OperationPanel.addEventListener('keydown', e => ChangeMode(e,f))
+        
     },[])
 
     return(
         <>
         <div className="row row-cols-1 p-3">
-            <div className="col border">命令模式</div>
+            <div className="col border">{mode?"命令模式":"編輯模式"}</div>
             <textarea id="OperationPanel" className="col" style={style} rows="4" placeholder="在此輸入內容..." onChange={OperationPanelOnChange}></textarea>
             <div id="OperationPanelInfo" className="col" style={style2}></div>
         </div>
