@@ -1,70 +1,92 @@
 import react,{useEffect,useState} from "react"
 
-const actionMode = ["操作模式","命令模式","編輯模式"]
+const actionMode = ["編輯模式","命令模式"]
 
 const style = {
     resize: "none",
     backgroundColor:"#333",
     color:"white"
 }
-
 const style2 = {
-    backgroundColor:"#111",
-    color:"white",
-    height:"24px",
-    textAlign:"right"
+    resize: "none",
+    backgroundColor:"#000",
+    color:"white"
 }
 
-
 export default function Siderbar(){
-    let modeType = 2
+    let modeType = 0
     const [modeIndex, setMode] = useState(modeType)
 
-    function comend(e){
+    function Commend(e){
         e.preventDefault()
-        const OperationPanel = document.getElementById('OperationPanel')
-        OperationPanel.value = ""
-        console.log(OperationPanel.value)
+        const CommendPanel = document.getElementById('CommendPanel')
+        CommendPanel.value = ""
     }
 
-    function OperationPanelOnChange(){
-        const OperationPanel = document.getElementById('OperationPanel')
-        if (modeType==2) document.getElementById('OperationPanelInfo').innerHTML = `${OperationPanel.value.length}/140`
+    function EditPanelOnChange(){
+        const EditPanel = document.getElementById('EditPanel')
+        if (modeType==0) document.getElementById('CommendPanel').value = `${EditPanel.value.length}/140`
     }
 
-    function ChangeMode(e,f){
-        const OperationPanel = document.getElementById('OperationPanel')
-        const OperationPanelInfo = document.getElementById('OperationPanelInfo')
+    function EditMode(e,f){
+        const EditPanel = document.getElementById('EditPanel')
+        const CommendPanel = document.getElementById('CommendPanel')
         switch(e.keyCode){
             case 192:
                 if (e.ctrlKey){
-                    OperationPanel.value = ""
-                    OperationPanelInfo.innerHTML=""
+                    CommendPanel.value=""
+                    f()
+                }
+                break;
+          }
+    }
+    function CommendMode(e,f){
+        const EditPanel = document.getElementById('EditPanel')
+        const CommendPanel = document.getElementById('CommendPanel')
+        switch(e.keyCode){
+            case 192:
+                if (e.ctrlKey){
+                    CommendPanel.value=""
                     f()
                 }
                 break;
             case 13:
-                if (modeType==1) comend(e)
+                Commend(e)
                 break;
           }
     }
 
     useEffect(() => {
+        const EditPanel = document.getElementById('EditPanel')
+        const CommendPanel = document.getElementById('CommendPanel')
+
         const f = () => setMode(modeIndex =>{
-            modeType = modeIndex+1>2?0:modeIndex+1
+            modeType = modeIndex+1>1?0:modeIndex+1
+            if(modeType==0){
+                EditPanel.disabled = false
+                CommendPanel.disabled = true
+                EditPanel.focus()
+            }
+            if(modeType==1){
+                EditPanel.disabled = true
+                CommendPanel.disabled = false
+                CommendPanel.focus()
+            }
+            
             return modeType
         })
-        const OperationPanel = document.getElementById('OperationPanel')
-        OperationPanel.focus()
-        OperationPanel.addEventListener('keydown', e => ChangeMode(e,f))
-        OperationPanel.addEventListener('input', () => OperationPanelOnChange())
+
+        EditPanel.focus()
+        EditPanel.addEventListener('keydown', e => EditMode(e,f))
+        CommendPanel.addEventListener('keydown', e => CommendMode(e,f))
+        EditPanel.addEventListener('input', () => EditPanelOnChange())
     },[])
 
     return(
         <div className="row row-cols-1 p-3">
             <div className="col border">{actionMode[modeIndex]}</div>
-            <textarea id="OperationPanel" className="col" style={style} rows="4" placeholder="在此輸入內容..."></textarea>
-            <div id="OperationPanelInfo" className="col" style={style2}></div>
+            <textarea id="EditPanel" className="col" style={style} rows="4" placeholder="在此輸入內容..."></textarea>
+            <textarea id="CommendPanel" className="col" style={style2} rows="1" dir={modeIndex==0?"rtl":"ltr"} disabled></textarea>
         </div>
     )
 }
