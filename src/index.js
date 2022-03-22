@@ -2,16 +2,14 @@ import React from 'react'
 import { render } from 'react-dom'
 
 import InfoMenu from './components/ActionMenu'
-import Fall from './components/Fall'
+import ViewMenu from './components/ViewMenu'
 import OtherInfo from './components/OtherInfo'
-
-let left_menu = {minWidth:"300px",maxWidth:"300px"}
 
 render(
     <div className='container-xxl'>
       <div className='row bg-secondary'>
         <OtherInfo />
-        <Fall />
+        <ViewMenu />
         <InfoMenu />
       </div>
     </div>

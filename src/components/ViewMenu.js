@@ -1,14 +1,14 @@
 import react  from "react"
 
-import Menu from './Fall/Menu'
+import Fall from './ViewMenu/Fall'
 import recipes from '../data/recipes.json'
 
-export default function Fall(){
+export default function ViewMenu(){
     return(
         <article className='col border bg-light border-warning'>
           <div className='row border'>
             <div className='col bg-light border sticky-top'>閱覽模式</div>
-            <Menu recipes={recipes}/>
+            <Fall recipes={recipes}/>
           </div>
         </article>
     )

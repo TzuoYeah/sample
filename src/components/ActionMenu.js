@@ -11,8 +11,8 @@ export default function InfoMenu(){
       <article className='col-4 bg-light border border-warning'>
         <div className='sticky-top'>
           <MemberInfo {...{ name:"@使用者",introduction:"自介自介自介自介自介自介自介自介(32/140)",headshot:"http://fakeimg.pl/200x200"}}/>
-          <Sidebar itemList={sidebar}/>
           <OperationPanel />
+          <Sidebar itemList={sidebar}/>
         </div>
       </article>
     )
