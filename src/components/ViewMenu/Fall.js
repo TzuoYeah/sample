@@ -1,10 +1,10 @@
 import react  from "react"
-import Tile from "./Menu/Tile"
+import Paste from "./Fall/Paste"
 
 export default function Fall({recipes}){
     return(
         <div className="recipes border">
-            {recipes.map((recipe,i)=>(<Tile key={i} {...recipe} />))}
+            {recipes.map((recipe,i)=>(<Paste key={i} {...recipe} />))}
         </div>
     )
 }

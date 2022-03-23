@@ -11,10 +11,10 @@ export default function Tile(){
                 <span className="border flex-fill" style={style}>@使用者名稱</span>
             </div>
             <div className="border col px-3 py-1">
-                <label>天就包好痛苦摩
-                    ，真的很來可，做得，家推特吃到真的還⋯注
-                    意保想起來沒有易小學⋯像很這樣太在。是覺得享受的是要該頭髮，理解是因為，
-                    好可惜也是級包想想。很好那麼多之，兩個年紀話說圖一有然是，麼問題是過這，謝謝⋯下一趕緊公告遊戲的人生計現超可，週年是不起這個有想難出現。</label>
+                【ProArt Station PD5 桌上型電腦｜前所未有創作體驗】<br/>
+                    ✓最高Intel Core i9 處理器，強大應援創作靈感<br/>
+                    ✓最高GeForce RTX 3070 顯示卡，細緻畫質重現所有想像<br/>
+                    ✓最高128GB 記憶體，2TB SSD + 4TB HDD 大容量雙儲存設計<br/>
             </div>
             <div className="border col px-3 py-1">
                 <label>留言等訊息</label>
