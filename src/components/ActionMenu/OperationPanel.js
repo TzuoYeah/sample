@@ -4,14 +4,18 @@ const actionMode = ["編輯模式","命令模式"]
 
 const style = {
     resize: "none",
-    backgroundColor:"#333",
-    color:"white"
+    backgroundColor:"#fff",
+    color:"#111",
+    border:"none",
+    outline:"none"
 }
 const style2 = {
     resize: "none",
-    backgroundColor:"#000",
-    color:"white",
-    overflow:"hidden"
+    backgroundColor:"#bbb",
+    color:"gray",
+    overflow:"hidden",
+    borderTop:"solid 1 light",
+    outline:"none"
 }
 
 //---
@@ -41,7 +45,7 @@ function editModeKeydown(e,{setState,editPanel,commendPanel}){
             if (e.ctrlKey) setState()
             break;
         case 13:
-            editSubmit(e,setState,commendPanel)
+            if(!e.shiftKey) editSubmit(e,setState,commendPanel)
             break;
       }
 }
@@ -75,16 +79,16 @@ export default function OperationPanel(){
     },[mode])
 
     return(
-        <div className="row row-cols-1 p-3">
-            <div className="col border">{actionMode[mode]}</div>
+        <div className="row row-cols-1 mt-3 border rounded">
+            <div className="col py-2 border-bottom bg-light">{actionMode[mode]}</div>
 
-            <textarea ref={editPanel} id="editPanel" className="col" style={style} rows="4" 
+            <textarea ref={editPanel} className="col" style={style} rows="4" 
             placeholder={mode==0?"在此輸入內容...":""} 
             disabled={mode!=0} 
             onKeyDown={ e=> editModeKeydown(e,option)} 
             onChange={ e=> editModeOnChange(e,option)}></textarea>
 
-            <textarea ref={commendPanel} id="commendPanel" className="col" style={style2} rows="1"
+            <textarea ref={commendPanel} className="col rounded-bottom" style={style2} rows="1"
              dir={mode==0?"rtl":"ltr"} 
              placeholder={mode==1?"在此輸入指令...":""} 
             disabled={mode!=1} onKeyDown={ e=> commendModeKey(e,option)}></textarea>

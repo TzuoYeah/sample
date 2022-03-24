@@ -6,14 +6,12 @@ import OperationPanel from './ActionMenu/OperationPanel'
 import sidebar from '../data/sidebar.json'
 
 
-export default function InfoMenu(){
+export default function ActionMenu(){
     return(
-      <article className='col-4 bg-light border border-warning'>
-        <div className='sticky-top'>
-          <MemberInfo {...{ name:"@使用者",introduction:"自介自介自介自介自介自介自介自介(32/140)",headshot:"http://fakeimg.pl/200x200"}}/>
+        <article className='sticky-top'>
+          <MemberInfo {...{ name:"10《10》",introduction:"#0726",headshot:"http://fakeimg.pl/200x200"}}/>
           <OperationPanel />
-          <Sidebar itemList={sidebar}/>
-        </div>
-      </article>
+          {/* <Sidebar itemList={sidebar}/> */}
+        </article>
     )
 }

@@ -1,10 +1,11 @@
 import react  from "react"
 import Paste from "./Fall/Paste"
 
-export default function Fall({recipes}){
+
+export default function Fall({pastes}){
     return(
-        <div className="recipes border">
-            {recipes.map((recipe,i)=>(<Paste key={i} {...recipe} />))}
+        <div className="recipes">
+            {pastes.map((paste,i)=>(<Paste key={i} {...paste} />))}
         </div>
     )
 }
