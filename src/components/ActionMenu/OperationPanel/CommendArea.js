@@ -1,5 +1,5 @@
 import react,{useRef,useEffect,useState,useContext}  from "react"
-import { useMode } from "../Hook/Mode-hooks";
+import { useMode } from '../../../Hook/Mode-hooks'
 //import { modeContext } from "../OperationPanel";
 
 const style = {
@@ -42,7 +42,7 @@ function onKeyDown(e,{mode,changeModeType,setValue,addLog}){
     if(mode===1)onCommend(e,{changeModeType,setValue,addLog});
 }
 
-export default function MemberInfo({hint,addLog}){    
+export default function MemberInfo({hint,addLog}){
     const {mode,changeModeType} = useMode()
     const [value, setValue] = useState("")
     const self = useRef()

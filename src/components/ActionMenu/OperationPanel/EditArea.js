@@ -1,5 +1,5 @@
 import react,{useRef,useState,useEffect,useContext}  from "react"
-import { useMode } from "../Hook/Mode-hooks";
+import { useMode } from '../../../Hook/Mode-hooks'
 //import { modeContext } from "../OperationPanel";
 
 const style = {
