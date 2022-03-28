@@ -4,11 +4,11 @@ const modeContext = createContext()
 export const useMode =()=> useContext(modeContext)
 
 export default function ModeProvider({children}){
-    const [mode, setModeType] = useState(0)
-    const changeModeType = mode => setModeType(mode)
+    const [workMode, setWorkMode] = useState(0)
+    const [viewMode, setViewMode] = useState(0)
 
     return(
-        <modeContext.Provider value={{mode,changeModeType}}>
+        <modeContext.Provider value={{workMode,setWorkMode,viewMode,setViewMode}}>
             {children}
         </modeContext.Provider>
     )

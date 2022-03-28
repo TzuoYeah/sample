@@ -1,6 +1,5 @@
 import react,{useRef,useEffect,useState,useContext}  from "react"
 import { useMode } from '../../../Hook/Mode-hooks'
-//import { modeContext } from "../OperationPanel";
 
 const style = {
     resize: "none",
@@ -11,6 +10,7 @@ const style = {
     outline:"none",
     fontSize:"16px"
 }
+
 //---方法
 
 function commend(e,setValue,addLog){
@@ -22,28 +22,28 @@ function commend(e,setValue,addLog){
 }
 //--- 狀態
 
-function onCommend(e,{changeModeType,setValue,addLog}){
+function onCommend(e,{setWorkMode,setValue,addLog}){
     if (e.ctrlKey){
-        if(e.key==='`') changeModeType(0);
+        if(e.key==='`') setWorkMode(0);
     }
     switch(e.key){
         case 'Enter':
             commend(e,setValue,addLog);break
         case 'Escape':
-            changeModeType(0);break
+            setWorkMode(0);break
         case 'Backspace':
-            if(e.target.value.length==0)changeModeType(0);break
+            if(e.target.value.length==0)setWorkMode(0);break
         default: break
     }
 }
 //---事件
 
-function onKeyDown(e,{mode,changeModeType,setValue,addLog}){
-    if(mode===1)onCommend(e,{changeModeType,setValue,addLog});
+function onKeyDown(e,{workMode,setWorkMode,setValue,addLog}){
+    if(workMode===1)onCommend(e,{setWorkMode,setValue,addLog});
 }
 
 export default function MemberInfo({hint,addLog}){
-    const {mode,changeModeType} = useMode()
+    const {workMode,setWorkMode} = useMode()
     const [value, setValue] = useState("")
     const self = useRef()
 
@@ -51,18 +51,18 @@ export default function MemberInfo({hint,addLog}){
     const onChange = e => setValue(e.target.value)
 
     useEffect(()=>{
-        if(mode===1) self.current.focus()
+        if(workMode===1) self.current.focus()
     })
 
     return(
         <textarea ref={self} className="col rounded-bottom py-0 pe-3"  rows="1" 
             style={style} 
-            dir={mode===0?"rtl":"ltr"} 
-            placeholder={mode===1?"在此輸入指令...":""} 
-            disabled={!(mode===1)} 
-            onKeyDown={ e=> onKeyDown(e,{mode,changeModeType,setValue,addLog}) } 
+            dir={workMode===0?"rtl":"ltr"} 
+            placeholder={workMode===1?"在此輸入指令...":""} 
+            disabled={!(workMode===1)} 
+            onKeyDown={ e=> onKeyDown(e,{workMode,setWorkMode,setValue,addLog}) } 
             onChange={ e=> onChange(e) } 
-            value={values[mode]}
+            value={values[workMode]}
         ></textarea> 
 
     )

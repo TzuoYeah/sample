@@ -1,6 +1,5 @@
 import react,{useRef,useState,useEffect,useContext}  from "react"
 import { useMode } from '../../../Hook/Mode-hooks'
-//import { modeContext } from "../OperationPanel";
 
 const style = {
     resize: "none",
@@ -24,43 +23,43 @@ const cmdStyle = {
 
 
 //--- 切換狀態
-function changeToConfirm(e,{changeModeType}){
+function changeToConfirm(e,{setWorkMode}){
     e.preventDefault()
     if(e.target.value.length===0) return
-    changeModeType(2)
+    setWorkMode(2)
 }
-function backToEdit(e,{changeModeType}){
+function backToEdit(e,{setWorkMode}){
     e.preventDefault()
-    changeModeType(0)
+    setWorkMode(0)
 }
 //---
 
-function submit(e,{changeModeType,changeValue}){
+function submit(e,{setWorkMode,changeValue}){
     e.preventDefault()
     changeValue("")
-    changeModeType(0)
+    setWorkMode(0)
 }
 
 //--- 狀態
 
-function onConfirm(e,{changeModeType,changeValue}){
+function onConfirm(e,{setWorkMode,changeValue}){
     switch(e.key){
-        case 'Escape': backToEdit(e,{changeModeType}); break
-        case 'Backspace': backToEdit(e,{changeModeType}); break
-        default: submit(e,{changeModeType,changeValue})
+        case 'Escape': backToEdit(e,{setWorkMode}); break
+        case 'Backspace': backToEdit(e,{setWorkMode}); break
+        default: submit(e,{setWorkMode,changeValue})
     }
 }
 
-function onEdit(e,{changeModeType}){
+function onEdit(e,{setWorkMode}){
     if (e.ctrlKey){
-        if(e.key==='`') changeModeType(1);
+        if(e.key==='`') setWorkMode(1);
     }
 
     switch(e.key){
         case 'Enter':
-            if(!e.shiftKey) changeToConfirm(e,{changeModeType});break
+            if(!e.shiftKey) changeToConfirm(e,{setWorkMode});break
         case 'Escape':
-            changeModeType(1);break
+            setWorkMode(1);break
             
         default: break
     }
@@ -74,12 +73,12 @@ function onChange(e,{changeHint,changeValue}){
 }
 
 function onKeydown(e,option){
-    if(option.mode===0) onEdit(e,{...option});
-    if(option.mode===2) onConfirm(e,{...option});
+    if(option.workMode===0) onEdit(e,{...option});
+    if(option.workMode===2) onConfirm(e,{...option});
 }
 
 export default function MemberInfo({changeHint=f=>f,cmdLog}){
-    const {mode,changeModeType} = useMode()
+    const {workMode,setWorkMode} = useMode()
     const [value, setValue] = useState("")
     const area = useRef()
 
@@ -87,25 +86,25 @@ export default function MemberInfo({changeHint=f=>f,cmdLog}){
     const changeValue = value => setValue(value)
     
     const option = {
-        mode,
-        changeModeType,
+        workMode,
+        setWorkMode,
         changeValue,
         changeHint
     }
 
     useEffect(()=>{
-        if(mode===0) area.current.focus()
-        if(mode===1) area.current.scrollTop = area.current.scrollHeight
+        if(workMode===0) area.current.focus()
+        if(workMode===1) area.current.scrollTop = area.current.scrollHeight
     })
 
     return(
         <textarea ref={area} className="col"
-            style={mode===1?cmdStyle:style} 
-            placeholder={mode===0?"在此輸入內容...":""} 
-            disabled={!(mode===0||mode===2)} 
+            style={workMode===1?cmdStyle:style} 
+            placeholder={workMode===0?"在此輸入內容...":""} 
+            disabled={!(workMode===0||workMode===2)} 
             onKeyDown={ e=> onKeydown(e,option) } 
             onChange={ e=> onChange(e,{...option}) }
-            value={values[mode]}
+            value={values[workMode]}
         ></textarea>
 
     )
