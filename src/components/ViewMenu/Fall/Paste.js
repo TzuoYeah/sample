@@ -5,9 +5,9 @@ let style = {
 }
 export default function Paste({name,time,content}){
     return(
-        <div className="d-flex flex-row mx-3 py-4 border-bottom">
-            <div className="border-end border-1">
-                <img className="rounded-circle p-2" src="https://fakeimg.pl/40x40/"></img>
+        <div className="d-flex flex-row mx-4 py-4 border-bottom">
+            <div className="border-end border-1 p-2">
+                <img className="rounded-circle" src="https://fakeimg.pl/40x40/"></img>
             </div>
             <div className="flex-grow-1">
                 <div className="p-2">
