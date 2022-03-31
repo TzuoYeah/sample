@@ -4,7 +4,7 @@ const modeContext = createContext()
 export const useMode =()=> useContext(modeContext)
 
 export default function ModeProvider({children}){
-    const [workMode, setWorkMode] = useState(0)
+    const [workMode, setWorkMode] = useState('commend')
     const [viewMode, setViewMode] = useState(0)
 
     return(

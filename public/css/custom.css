@@ -1,0 +1,21 @@
+/* width */
+textarea::-webkit-scrollbar {
+    width: 6px;
+  }
+
+/* Track */
+textarea::-webkit-scrollbar-track {
+background: #888;
+}
+
+/* Handle */
+textarea::-webkit-scrollbar-thumb {
+background: #bbb;
+border-radius: 10px;
+}
+
+/* Handle on hover */
+textarea::-webkit-scrollbar-thumb:hover {
+background: #ddd;
+border-radius: 10px;
+}

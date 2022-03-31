@@ -5,15 +5,14 @@ const style = {
     resize: "none",
     backgroundColor:"#fff",
     color:"#111",
-    border:"none",
     outline:"none",
-    minHeight:"100px"
+    minHeight:"100px",
+    borderColor:"#dee2e6"
 }
 const cmdStyle = {
     resize: "none",
     backgroundColor:"#444",
     color:"#eee",
-    border:"none",
     outline:"none",
     fontSize:"14px",
     lineHeight:"24px",
@@ -26,18 +25,18 @@ const cmdStyle = {
 function changeToConfirm(e,{setWorkMode}){
     e.preventDefault()
     if(e.target.value.length===0) return
-    setWorkMode(2)
+    setWorkMode('editSubmit')
 }
 function backToEdit(e,{setWorkMode}){
     e.preventDefault()
-    setWorkMode(0)
+    setWorkMode('edit')
 }
 //---
 
 function submit(e,{setWorkMode,changeValue}){
     e.preventDefault()
     changeValue("")
-    setWorkMode(0)
+    setWorkMode('edit')
 }
 
 //--- 狀態
@@ -52,14 +51,14 @@ function onConfirm(e,{setWorkMode,changeValue}){
 
 function onEdit(e,{setWorkMode}){
     if (e.ctrlKey){
-        if(e.key==='`') setWorkMode(1);
+        if(e.key==='`') setWorkMode('commend');
     }
 
     switch(e.key){
         case 'Enter':
             if(!e.shiftKey) changeToConfirm(e,{setWorkMode});break
         case 'Escape':
-            setWorkMode(1);break
+            setWorkMode('commend');break
             
         default: break
     }
@@ -73,16 +72,21 @@ function onChange(e,{changeHint,changeValue}){
 }
 
 function onKeydown(e,option){
-    if(option.workMode===0) onEdit(e,{...option});
-    if(option.workMode===2) onConfirm(e,{...option});
+    if(option.workMode==='edit') onEdit(e,{...option});
+    if(option.workMode==='editSubmit') onConfirm(e,{...option});
 }
+
+//---
 
 export default function MemberInfo({changeHint=f=>f,cmdLog}){
     const {workMode,setWorkMode} = useMode()
     const [value, setValue] = useState("")
     const area = useRef()
-
-    const values=[value,cmdLog,value]
+    const values={
+        edit:value,
+        commend:cmdLog,
+        editSubmit:value
+    }
     const changeValue = value => setValue(value)
     
     const option = {
@@ -93,15 +97,15 @@ export default function MemberInfo({changeHint=f=>f,cmdLog}){
     }
 
     useEffect(()=>{
-        if(workMode===0) area.current.focus()
-        if(workMode===1) area.current.scrollTop = area.current.scrollHeight
+        if(workMode==='edit') area.current.focus()
+        if(workMode==='commend') area.current.scrollTop = area.current.scrollHeight
     })
 
     return(
-        <textarea ref={area} className="col"
-            style={workMode===1?cmdStyle:style} 
-            placeholder={workMode===0?"在此輸入內容...":""} 
-            disabled={!(workMode===0||workMode===2)} 
+        <textarea ref={area} className="col border-top-0 rounded-bottom "
+            style={workMode==='commend'?cmdStyle:style} 
+            placeholder={workMode==='edit'?"在此輸入內容...":""} 
+            disabled={!(workMode==='edit'||workMode==='editSubmit')} 
             onKeyDown={ e=> onKeydown(e,option) } 
             onChange={ e=> onChange(e,{...option}) }
             value={values[workMode]}

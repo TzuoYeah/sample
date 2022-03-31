@@ -1,12 +1,11 @@
-import react,{useRef,useEffect,useState,useContext}  from "react"
+import react,{useRef,useEffect,useState}  from "react"
 import { useMode } from '../../../Hook/Mode-hooks'
 
 const style = {
     resize: "none",
-    backgroundColor:"#ddd",
+    backgroundColor:"#eee",
     color:"gray",
     overflow:"hidden",
-    borderTop:"solid 1 light",
     outline:"none",
     fontSize:"16px"
 }
@@ -51,34 +50,38 @@ function commend(e,{viewMode,workMode,setWorkMode,setValue,addLog,setViewMode}){
 
 function onCommend(e,option){
     if (e.ctrlKey){
-        if(e.key==='`') option.setWorkMode(0);
+        if(e.key==='`') option.setWorkMode('edit');
     }
     switch(e.key){
         case 'Enter':
             commend(e,option);break
         case 'Escape':
-            option.setWorkMode(0);break
-        case 'Backspace':
-            if(e.target.value.length==0)option.setWorkMode(0);break
+            option.setWorkMode('edit');break
         default: break
     }
 }
 //---事件
 
 function onKeyDown(e,option){
-    if(option.workMode===1)onCommend(e,option);
+    if(option.workMode==='commend')onCommend(e,option);
 }
 
+//---
+
+
 export default function MemberInfo({hint,addLog}){
-    const {workMode,viewMode,setWorkMode,setViewMode} = useMode()
+    const {workMode,setWorkMode,viewMode,setViewMode} = useMode()
     const [value, setValue] = useState("")
     const self = useRef()
 
-    const values=[hint,value,"請按下任意鍵送出資料，或按下'Esc'回到編輯模式。"]
+    const values={
+        edit:hint,
+        commend:value,
+        editSubmit:"請按下任意鍵送出資料，或按下'Esc'回到編輯模式。"
+    }
     const onChange = e => setValue(e.target.value)
-
     useEffect(()=>{
-        if(workMode===1) self.current.focus()
+        if(workMode==='commend') self.current.focus()
     })
 
     const option={
@@ -90,11 +93,11 @@ export default function MemberInfo({hint,addLog}){
         setViewMode
     }
     return(
-        <textarea ref={self} className="col rounded-bottom py-0 pe-3"  rows="1" 
+        <textarea ref={self} className="col py-0 pe-3 mt-1 rounded-pill"  rows="1" 
             style={style} 
-            dir={workMode===0?"rtl":"ltr"} 
-            placeholder={workMode===1?"在此輸入指令...":""} 
-            disabled={!(workMode===1)} 
+            dir={workMode==='edit'?"rtl":"ltr"} 
+            placeholder={workMode==='commend'?"在此輸入指令...":""} 
+            disabled={!(workMode==='commend')} 
             onKeyDown={ e=> onKeyDown(e,option) } 
             onChange={ e=> onChange(e) } 
             value={values[workMode]}
