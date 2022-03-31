@@ -5,17 +5,22 @@ import List from "./Fall/BoardList"
 
 export default function Fall({pastes}){
     const {viewMode} = useMode()
-    if(viewMode==0)
+    if(viewMode==='posts')
     {
         return(
             <div>
                 {pastes.map((paste,i)=>(<Paste key={i} {...paste} />))}
             </div>
         )
-    }else{
+    }else if(viewMode==='board'){
         return(
             <div>
                 <List />
+            </div>
+        )
+    }else{
+        return(
+            <div>
             </div>
         )
     }
