@@ -21,9 +21,13 @@ export default function WorkPanel(){
  
     return(
         <div className="row row-cols-1 mt-1" onClick={ e=> onClick(e) }>
-            <CommendArea {...{hint,setLog}}/>
-            <div className="col py-1 border border-bottom-0 rounded-top shadow-sm" style={{backgroundColor:"#eee"}}>{modeName[workMode]}</div>
-            <EditArea {...{changeHint,cmdLog}}/> 
+            <div className="row row-cols-1 p-0 mx-1">
+                <CommendArea {...{hint,setLog}}/>
+            </div>
+            <div className="row row-cols-1 shadow-sm p-0 mx-1">
+                <div className="col py-1 border border-bottom-0 rounded-top" style={{backgroundColor:"#eee"}}>{modeName[workMode]}</div>
+                <EditArea {...{changeHint,cmdLog}}/> 
+            </div>
         </div>
     )
 }

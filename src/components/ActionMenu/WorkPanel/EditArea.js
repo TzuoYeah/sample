@@ -102,7 +102,7 @@ export default function MemberInfo({changeHint=f=>f,cmdLog}){
     })
 
     return(
-        <textarea ref={area} className="col border-top-0 rounded-bottom shadow-sm"
+        <textarea ref={area} className="col border-top-0 rounded-bottom"
             style={workMode==='commend'?cmdStyle:style} 
             placeholder={workMode==='edit'?"在此輸入內容...":""} 
             disabled={!(workMode==='edit'||workMode==='editSubmit')} 

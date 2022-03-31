@@ -116,7 +116,7 @@ export default function MemberInfo({hint,setLog}){
     const setPlaceholder =(mode)=>{
         switch(mode){
             case 'commend': return "在此輸入命令..."
-            case 'control': return "按下'/'回到命令模式"
+            case 'control': return "按下'/'回到命令模式。"
             default: return ""
         }
     }
@@ -146,7 +146,7 @@ export default function MemberInfo({hint,setLog}){
         setViewMode
     }
     return(
-        <textarea ref={self} className="col py-0 pe-3 mb-3 rounded-pill shadow-sm"  rows="1" 
+        <textarea ref={self} className="d-flex py-0 pe-3 mb-3 rounded-pill shadow-sm"  rows="1" 
             style={style} 
             dir={setDir(workMode)} 
             placeholder={setPlaceholder(workMode)} 
